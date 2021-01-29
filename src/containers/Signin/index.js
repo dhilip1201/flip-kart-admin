@@ -43,7 +43,7 @@ const Signin = (props) => {
     <Layout>
       <Container>
       <p className="userMessage">{user.message}</p>
-        <Row style={{ marginTop: "60px" }}>
+        <Row style={{ marginTop: "160px" }}>
           <Col md={{ span: 6, offset: 3 }}>
             <Form onSubmit={userLogin}>
               <Input
