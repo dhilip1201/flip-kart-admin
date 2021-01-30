@@ -12,6 +12,7 @@ import { signout } from "../../actions";
 const Header = (props) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  console.log("AUTHAAAAA",auth.user.fullName)
 
   const logout = () => {
     dispatch(signout());
@@ -20,11 +21,21 @@ const Header = (props) => {
   const renderLoggedInLinks = () => {
     return (
       <Nav>
-        <li className="nav-item">
+        
+        <NavDropdown title={auth.user.fullName} id="collasible-nav-dropdown">
+                            {/* <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={logout}>Signout</NavDropdown.Item>
+                            </NavDropdown>
+        {/* <li className="nav-item">
+          
           <span className="nav-link" onClick={logout}>
-            Signout
+          {auth.user.fullName}-
+          Signout
           </span>
-        </li>
+        </li> */}
       </Nav>
     );
   };
