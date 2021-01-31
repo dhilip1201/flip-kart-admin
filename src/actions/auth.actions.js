@@ -11,7 +11,6 @@ import { authConstants } from "./constants"
             ...user
         });
         // console.log("Response-data>>>>>>",res.data);
-        console.log("Response-Status>>>>>>",res.status);
 
         if(res.status === 200){
             const {token, user}= res.data

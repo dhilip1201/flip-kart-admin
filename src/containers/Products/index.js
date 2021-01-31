@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct, deleteProductById } from "../../actions";
+import Toast from 'react-bootstrap/Toast';
+import Spinner from 'react-bootstrap/Spinner'
 import { generatePublicUrl } from "../../urlConfig";
 import "./Style.css";
 
@@ -27,9 +29,12 @@ const Products = (props) => {
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
+  const [showToast, setShowToast] = useState(true);
+  
   const handleClose = () => {
     setShow(false);
   };
+  
 
   const submitProductForm = () => {
     const form = new FormData();
@@ -44,6 +49,12 @@ const Products = (props) => {
     }
 
     dispatch(addProduct(form)).then(() => setShow(false));
+    setName("");
+    setQuantity("");
+    setPrice("");
+    setDescription("");
+    setProductPictures([]);
+    console.log("PRODUCT>>>", product);
   };
   const handleShow = () => setShow(true);
 
@@ -79,7 +90,7 @@ const Products = (props) => {
           {product.products.length > 0
             ? product.products.map((product) => (
                 <tr key={product._id}>
-                  <td>2</td>
+                  <td>1</td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>{product.quantity}</td>
@@ -96,7 +107,7 @@ const Products = (props) => {
                         dispatch(deleteProductById(payload));
                       }}
                     >
-                      del
+                      delete
                     </button>
                   </td>
                 </tr>
@@ -228,14 +239,30 @@ const Products = (props) => {
       </Modal>
     );
   };
+  if(product.loading){
+   return <div className="center">
+      <Spinner animation="grow" variant="success" />
+    </div>
+  }
   return (
     <Layout sidebar>
       <Container>
+
+      
+      {product.message ?
+      <Toast style={{position: 'absolute', top: "100px",right: "0px", zIndex:"1"}} onClose={() => setShowToast(false)} show={showToast} delay={4000} autohide>
+          <Toast.Header>
+            <strong className="mr-auto"> Flip Kart </strong>
+            
+          </Toast.Header>
+          <Toast.Body>{product.message}</Toast.Body>
+        </Toast>  
+      : null}
         <Row>
           <Col md={12}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h3>Products</h3>
-              <button onClick={handleShow}>Add</button>
+              <button onClick={handleShow}><span>Add</span></button>
             </div>
           </Col>
         </Row>

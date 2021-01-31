@@ -14,7 +14,9 @@ const getProducts = () => {
           payload: { products },
         });
       } else {
-        dispatch({ type: productConstants.GET_ALL_PRODUCTS_FAILURE });
+        dispatch({ 
+          type: productConstants.GET_ALL_PRODUCTS_FAILURE
+         });
       }
     } catch (error) {
       console.log(error);
@@ -29,12 +31,21 @@ export const addProduct = (form) => {
     try {
       dispatch({ type: productConstants.ADD_PRODUCT_REQUEST });
       const res = await axios.post(`product/create`, form);
-      console.log(res)
+      console.log("RES_PRODUCT", res.data)
       if (res.status === 201) {
-        dispatch({ type: productConstants.ADD_PRODUCT_SUCCESS });
+        const {message}= res.data;
+        dispatch({ 
+          type: productConstants.ADD_PRODUCT_SUCCESS,
+          payload:{
+             message
+          }
+         });
         dispatch(getProducts());
       } else {
-        dispatch({ type: productConstants.ADD_PRODUCT_FAILURE });
+        dispatch({ 
+          type: productConstants.ADD_PRODUCT_FAILURE,
+          payload:{error:res.data.error}
+         });
       }
     } catch (error) {
       console.log(error);

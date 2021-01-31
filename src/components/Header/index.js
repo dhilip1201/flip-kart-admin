@@ -12,7 +12,7 @@ import { signout } from "../../actions";
 const Header = (props) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log("AUTHAAAAA",auth.user.fullName)
+  // console.log("AUTHAAAAA",auth.user.fullName)
 
   const logout = () => {
     dispatch(signout());
