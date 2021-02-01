@@ -239,17 +239,17 @@ const Products = (props) => {
       </Modal>
     );
   };
-  if(product.loading){
-   return <div className="center">
-      <Spinner animation="grow" variant="success" />
-    </div>
-  }
+  // if(product.loading){
+  //  return <div className="center">
+  //     <Spinner animation="grow" variant="success" />
+  //   </div>
+  // }
   return (
     <Layout sidebar>
       <Container>
 
       
-      {product.message ?
+      {product.loading ?
       <Toast style={{position: 'absolute', top: "100px",right: "0px", zIndex:"1"}} onClose={() => setShowToast(false)} show={showToast} delay={4000} autohide>
           <Toast.Header>
             <strong className="mr-auto"> Flip Kart </strong>
