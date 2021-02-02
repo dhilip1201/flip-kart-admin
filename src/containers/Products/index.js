@@ -249,7 +249,7 @@ const Products = (props) => {
       <Container>
 
       
-      {product.loading ?
+      {product.message ?
       <Toast style={{position: 'absolute', top: "100px",right: "0px", zIndex:"1"}} onClose={() => setShowToast(false)} show={showToast} delay={4000} autohide>
           <Toast.Header>
             <strong className="mr-auto"> Flip Kart </strong>
